@@ -1,0 +1,26 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ include file="EF.Utility.CS.ttinclude"#>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#
+string inputFile =@"..\\DDBlog\\DwDxx.Model\\EntityModel";
+var files = Directory.GetFiles(inputFile, "*.cs");
+
+EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileManager.Create(this);
+#>
+namespace DwDxx.IDAL
+{
+public partial interface IDBSession
+    {
+		<#
+		foreach (var file in files)
+		{
+		var entity = Path.GetFileNameWithoutExtension(file); 
+		#>	
+		I<#=entity#>Dal <#=entity#>Dal{get;set;}
+		<#}#>    
+    }
+}

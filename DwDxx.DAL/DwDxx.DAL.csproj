@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DwDxx.IDAL\DwDxx.IDAL.csproj" />
     <ProjectReference Include="..\DwDxx.Model\DwDxx.Model.csproj" />
   </ItemGroup>
 
