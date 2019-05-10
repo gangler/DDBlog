@@ -21,9 +21,9 @@
       <LastGenOutput>IDal.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
-    <None Update="IDBSession.tt">
+    <None Update="IDBSession1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>IDBSession.cs</LastGenOutput>
+      <LastGenOutput>IDBSession1.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
@@ -32,10 +32,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="IDBSession.cs">
+    <Compile Update="IDBSession1.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>IDBSession.tt</DependentUpon>
+      <DependentUpon>IDBSession1.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 
