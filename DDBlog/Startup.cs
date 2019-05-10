@@ -13,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Swashbuckle.AspNetCore.Swagger;
+using System.IO;
 
 namespace DDBlog
 {
@@ -38,6 +40,33 @@ namespace DDBlog
                     mysqlOptions.ServerVersion(new Version(5, 7, 23), ServerType.MySql);
                 }
             ));
+            //注册Swagger生成器，定义一个和多个Swagger 文档
+            services.AddSwaggerGen(a =>
+            {
+                a.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "My API",
+                    Description = "A simple example ASP.NET Core Web API",
+                    TermsOfService = "None",
+                    Contact = new Contact
+                    {
+                        Name = "依乐祝",
+                        Email = string.Empty,
+                        Url = "http://www.cnblogs.com/yilezhu/"
+                    },
+                    License = new License
+                    {
+                        Name = "许可证名字",
+                        Url = "http://www.cnblogs.com/yilezhu/"
+                    }
+                });
+                // 为 Swagger JSON and UI设置xml文档注释路径
+                var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
+                //获取应用程序所在目录（绝对，不受工作目录影响，建议采用此方法获取路径）
+                var xmlPath = Path.Combine(basePath, "DDBlog.xml");
+                a.IncludeXmlComments(xmlPath);
+            });
 
         }
 
@@ -55,6 +84,13 @@ namespace DDBlog
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            //启动中间件服务生成Swagger作为JSON终结点
+            app.UseSwagger();
+            //启用中间件服务对swagger-ui，指定Swagger JSON终结点
+            app.UseSwaggerUI(a =>
+            {
+                a.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
         }
     }
 }
